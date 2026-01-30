@@ -4,14 +4,15 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import med.voll.api.domain.Medico;
 import med.voll.api.dto.MedicoRequestDTO;
+import med.voll.api.dto.MedicoResponseDTO;
 import med.voll.api.service.CadastrarMedicoService;
+import med.voll.api.service.ListarMedicoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
+
 import java.util.List;
 
 @RestController
@@ -19,11 +20,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MedicoController {
 
-    private final CadastrarMedicoService service;
+    private final CadastrarMedicoService cadastrarMedicoService;
+    private final ListarMedicoService listarMedicoService;
+
     @PostMapping
     public ResponseEntity cadastrar(@RequestBody @Valid MedicoRequestDTO dados){
         try {
-            service.cadastrarMedico(dados);
+            cadastrarMedicoService.cadastrarMedico(dados);
 
             return ResponseEntity.ok().build();
         }
@@ -32,5 +35,17 @@ public class MedicoController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<Page<MedicoResponseDTO>> listar(Pageable paginacao){
+        try
+        {
+            Page<MedicoResponseDTO> response = listarMedicoService.listar(paginacao);
+            return ResponseEntity.ok(response);
+        }
+        catch (Exception ex)
+        {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 }
