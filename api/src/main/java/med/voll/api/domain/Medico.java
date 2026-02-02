@@ -27,7 +27,10 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
+    private Boolean ativo;
+
     public Medico(String nome, String email, String crm, String telefone, Especialidades especialidade, Endereco endereco) {
+        this.ativo = true;
         this.nome = nome;
         this.email = email;
         this.crm = crm;
@@ -50,6 +53,10 @@ public class Medico {
         {
             this.endereco = endereco;
         }
+    }
+
+    public void inativar(){
+        this.ativo = false;
     }
 }
 

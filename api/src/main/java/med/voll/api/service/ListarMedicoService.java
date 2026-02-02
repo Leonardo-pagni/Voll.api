@@ -16,6 +16,6 @@ public class ListarMedicoService {
     private final MedicoRepository repository;
 
     public Page<MedicoResponseDTO> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao){
-        return repository.findAll(paginacao).map(MedicoResponseDTO::new);
+        return repository.findAllByAtivoTrue(paginacao).map(MedicoResponseDTO::new);
     }
 }
