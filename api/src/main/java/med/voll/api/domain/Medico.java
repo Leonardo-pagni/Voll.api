@@ -4,7 +4,6 @@ package med.voll.api.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import med.voll.api.domain.Enum.Especialidades;
-import med.voll.api.dto.MedicoRequestDTO;
 
 @Table(name = "medicos")
 @Entity(name = "Medico")
@@ -28,13 +27,29 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
-    public Medico(MedicoRequestDTO dto) {
-        this.nome = dto.nome();
-        this.email = dto.email();
-        this.crm = dto.crm();
-        this.telefone = dto.telefone();
-        this.especialidade = dto.especialidade();
-        this.endereco = new Endereco(dto.endereco());
+    public Medico(String nome, String email, String crm, String telefone, Especialidades especialidade, Endereco endereco) {
+        this.nome = nome;
+        this.email = email;
+        this.crm = crm;
+        this.telefone = telefone;
+        this.especialidade = especialidade;
+        this.endereco = endereco;
+    }
+
+    public void AtualizarMedico(String nome, String telefone, Endereco endereco)
+    {
+        if(nome != null)
+        {
+            this.nome = nome;
+        }
+        if(telefone != null)
+        {
+            this.telefone = telefone;
+        }
+        if(endereco != null)
+        {
+            this.endereco = endereco;
+        }
     }
 }
 

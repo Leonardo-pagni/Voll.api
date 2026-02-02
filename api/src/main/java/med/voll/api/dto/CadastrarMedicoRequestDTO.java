@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import med.voll.api.domain.Enum.Especialidades;
 
-public record MedicoRequestDTO(
+public record CadastrarMedicoRequestDTO(
         @NotBlank String nome,
 
         @NotBlank @Email String email,

@@ -2,7 +2,6 @@ package med.voll.api.domain;
 
 import jakarta.persistence.Embeddable;
 import lombok.*;
-import med.voll.api.dto.EnderecoDTO;
 
 @Embeddable
 @Getter
@@ -18,13 +17,34 @@ public class Endereco {
     private String uf;
     private String complemento;
 
-    public Endereco(EnderecoDTO dto) {
-        this.uf = dto.uf();
-        this.cep = dto.cep();
-        this.bairro = dto.bairro();
-        this.logradouro = dto.logradouro();
-        this.complemento = dto.complemento();
-        this.cidade = dto.cidade();
-        this.numero = dto.numero();
+    public void AtualizarEndereco(String logradouro, String numero, String bairro, String cep, String cidade, String uf, String complemento) {
+        if(logradouro != null)
+        {
+            this.logradouro = logradouro;
+        }
+        if(numero != null)
+        {
+            this.numero = numero;
+        }
+        if(bairro != null)
+        {
+            this.bairro = bairro;
+        }
+        if(cep != null)
+        {
+            this.cep = cep;
+        }
+        if(cidade != null)
+        {
+            this.cidade = cidade;
+        }
+        if(uf != null)
+        {
+            this.uf = uf;
+        }
+        if(complemento != null)
+        {
+            this.complemento = complemento;
+        }
     }
 }

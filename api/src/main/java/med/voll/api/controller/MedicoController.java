@@ -2,18 +2,16 @@ package med.voll.api.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import med.voll.api.domain.Medico;
-import med.voll.api.dto.MedicoRequestDTO;
+import med.voll.api.dto.AtualizarMedicoRequestDTO;
+import med.voll.api.dto.CadastrarMedicoRequestDTO;
 import med.voll.api.dto.MedicoResponseDTO;
+import med.voll.api.service.AtualizarMedicoService;
 import med.voll.api.service.CadastrarMedicoService;
 import med.voll.api.service.ListarMedicoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
-import java.util.List;
 
 @RestController
 @RequestMapping("medicos")
@@ -22,9 +20,10 @@ public class MedicoController {
 
     private final CadastrarMedicoService cadastrarMedicoService;
     private final ListarMedicoService listarMedicoService;
+    private final AtualizarMedicoService atualizarMedicoService;
 
     @PostMapping
-    public ResponseEntity cadastrar(@RequestBody @Valid MedicoRequestDTO dados){
+    public ResponseEntity cadastrar(@RequestBody @Valid CadastrarMedicoRequestDTO dados){
         try {
             cadastrarMedicoService.cadastrarMedico(dados);
 
@@ -41,6 +40,19 @@ public class MedicoController {
         {
             Page<MedicoResponseDTO> response = listarMedicoService.listar(paginacao);
             return ResponseEntity.ok(response);
+        }
+        catch (Exception ex)
+        {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity Atualizar(@RequestBody @Valid AtualizarMedicoRequestDTO dados){
+        try
+        {
+            atualizarMedicoService.AtualizarMedico(dados);
+            return ResponseEntity.ok().build();
         }
         catch (Exception ex)
         {
